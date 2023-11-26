@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p><b>Enter a positive integer N:</b></p>
+    <p>Enter a positive integer N: <input style="width: auto;" type="text" id="num">
+        <input style="width: auto;" type="submit" value="Check prime" id="button" onclick="showNumbers()">
+    </p>
+    <div id="output">
+        <p>Please enter a valid positive integer.</p>
+    </div>
+    <script>
+        function showNumbers() {
+            var number = parseInt(document.getElementById('num').value);
+            var isPrime = true;
+            var str = '';
+            if (number === 1) {
+                isPrime = false;
+            }
+            else if (number > 1) {
+                for (let i = 2; i < number; i++) {
+                    if (number % i == 0) {
+                        isPrime = false;
+                        break;
+                    }
+                }
+            }
+            if (isPrime) {
+                str += 'true';
+                document.getElementById("output").innerText = str;
+            } else {
+                str += 'false';
+                document.getElementById("output").innerText = str;
+            }
+        }
+    </script>
+</body>
+
+</html>

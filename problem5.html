@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <p><b>Numbers from 1 to N</b></p>
+        <p>Enter a positive integer N: <input style="width: auto;" type="text" id="num">
+            <input style="width: auto;" type="submit" value="Print Numbers" id="button" onclick="showNumbers()">
+
+        </p>
+        <div id="output"></div>
+        <script>
+            function showNumbers() {
+                var value = document.getElementById('num').value;
+                var str = '';
+                for (var i = 1; i <= value; i++) {
+                    str += i + ' ';
+                }
+                document.getElementById("output").innerHTML = str;
+            }
+
+        </script>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Management</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Product form -->
+    <form id="productForm">
+        <label for="productId">Product ID:</label>
+        <input type="number" id="productId" required>
+
+        <label for="productName">Product Name:</label>
+        <input type="text" id="productName" required>
+
+        <label for="productQuantity">Quantity:</label>
+        <input type="number" id="productQuantity" required>
+
+        <label for="productPrice">Price:</label>
+        <input type="number" id="productPrice" step="0.01" required>
+
+        <label for="productImage">Image URL:</label>
+        <input type="text" id="productImage" required>
+
+        <button type="button" onclick="addProduct()">Add Product</button>
+    </form>
+
+    <!-- Additional Functionality Buttons -->
+    <button type="button" onclick="sortProductList()">Sort by Name</button>
+    <input type="text" id="searchProductName" placeholder="Search by Name">
+    <button type="button" onclick="searchProductByName()">Search by Name</button>
+    <button type="button" onclick="addProductToHead()">Add to Head</button>
+    <button type="button" onclick="addProductToTail()">Add to Tail</button>
+
+    <!-- Product list -->
+    <table id="productList">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Image</th>
+            <th>Actions</th>
+        </tr>
+    </table>
+
+    <script>
+        // Data
+        let productList = [];
+        let nextProductId = 1;
+
+        // Function to print the product list
+        function printProductList(products = productList) {
+            const table = document.getElementById('productList');
+            // Clear existing rows
+            table.innerHTML = "<tr><th>ID</th><th>Name</th><th>Quantity</th><th>Price</th><th>Image</th><th>Actions</th></tr>";
+
+            // Populate the table with product data
+            products.forEach(product => {
+                const row = table.insertRow(-1);
+                row.insertCell(0).textContent = product.id;
+                row.insertCell(1).textContent = product.name;
+                row.insertCell(2).textContent = product.quantity;
+                row.insertCell(3).textContent = product.price.toFixed(2);
+                row.insertCell(4).innerHTML = `<img src="${product.image}" alt="${product.name}" width="50">`;
+
+                // Create delete button
+                const actionsCell = row.insertCell(5);
+                const deleteButton = createButton('Delete', () => removeProduct(product));
+                actionsCell.appendChild(deleteButton);
+            });
+        }
+
+        // Function to add a product
+        function addProduct() {
+            const newProduct = createProductFromForm();
+            productList.push(newProduct);
+            printProductList();
+            resetForm('productForm');
+        }
+
+        // Function to sort the product list by name
+        function sortProductList() {
+            productList.sort((a, b) => a.name.localeCompare(b.name));
+            printProductList();
+        }
+
+        // Function to remove a product
+        function removeProduct(product) {
+            productList = productList.filter(p => p !== product);
+            printProductList();
+        }
+
+        // Function to search products by name
+        function searchProductByName() {
+            const searchName = getValue('searchProductName').toLowerCase();
+            const foundProducts = productList.filter(product => product.name.toLowerCase().includes(searchName));
+            printProductList(foundProducts);
+        }
+
+        // Function to add a product to the head of the list
+        function addProductToHead() {
+            const newProduct = createProductFromForm();
+            productList.unshift(newProduct);
+            printProductList();
+            resetForm('productForm');
+        }
+
+        // Function to add a product to the tail of the list
+        function addProductToTail() {
+            const newProduct = createProductFromForm();
+            productList.push(newProduct);
+            printProductList();
+            resetForm('productForm');
+        }
+
+        // Helper function to create a button with a given label and click event handler
+        function createButton(label, onClick) {
+            const button = document.createElement('button');
+            button.textContent = label;
+            button.onclick = onClick;
+            return button;
+        }
+
+        // Helper function to get the value of an input field by ID
+        function getValue(id) {
+            return document.getElementById(id).value.trim();
+        }
+
+        // Helper function to get the value of an input field as an integer
+        function getValueAsInt(id) {
+            return parseInt(getValue(id), 10);
+        }
+
+        // Helper function to get the value of an input field as a float
+        function getValueAsFloat(id) {
+            return parseFloat(getValue(id));
+        }
+
+        // Helper function to reset a form by ID
+        function resetForm(id) {
+            document.getElementById(id).reset();
+        }
+
+        // Helper function to create a product object from the form data
+        function createProductFromForm() {
+            return {
+                id: getValueAsInt('productId'),
+                name: getValue('productName'),
+                quantity: getValueAsInt('productQuantity'),
+                price: getValueAsFloat('productPrice'),
+                image: getValue('productImage')
+            };
+        }
+
+        // Initial rendering of the empty product list
+        printProductList();
+    </script>
+
+</body>
+
+</html>

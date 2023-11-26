@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+
+<body>
+    <table border="1" style="border-collapse: collapse; text-align: center; " id="mytable">
+        <tr>
+            <th>str</th>
+            <th>parseInt(str)</th>
+            <th>parseFloat(str)</th>
+            <th>Number(str)</th>
+            <th>+str</th>
+            <th>str | 0</th>
+        </tr>
+        <tr>
+            <td>1234</td>
+            <td>?</td>
+            <td>?</td>
+            <td>?</td>
+            <td>?</td>
+            <td>?</td>
+
+        </tr>
+        <tr>
+            <td>1234abc</td>
+            <td>?</td>
+            <td>?</td>
+            <td>?</td>
+            <td>?</td>
+            <td>?</td>
+        </tr>
+        <tr>
+            <td>0.15</td>
+            <td>?</td>
+            <td>?</td>
+            <td>?</td>
+            <td>?</td>
+            <td>?</td>
+        </tr>
+        <tr>
+            <td>3.14ivan</td>
+            <td>?</td>
+            <td>?</td>
+            <td>?</td>
+            <td>?</td>
+            <td>?</td>
+        </tr>
+        <tr>
+            <td>infinity</td>
+            <td>?</td>
+            <td>?</td>
+            <td>?</td>
+            <td>?</td>
+            <td>?</td>
+        </tr>
+        <tr>
+            <td>99999999999999999999</td>
+            <td>?</td>
+            <td>?</td>
+            <td>?</td>
+            <td>?</td>
+            <td>?</td>
+        </tr>
+    </table>
+    <script>
+        var table = document.getElementById("mytable");
+        for (var i = 1; i < table.rows.length; i++) {
+            var strValue = document.getElementById('mytable').rows[i].cells[0].innerHTML;
+            document.getElementById('mytable').rows[i].cells[1].innerHTML = parseInt(strValue);
+            document.getElementById('mytable').rows[i].cells[2].innerHTML = parseFloat(strValue);
+            document.getElementById('mytable').rows[i].cells[3].innerHTML = Number(strValue);
+            document.getElementById('mytable').rows[i].cells[4].innerHTML = +strValue;
+            document.getElementById('mytable').rows[i].cells[5].innerHTML = strValue | 0;
+        }
+    </script>
+</body>
+
+</html>
